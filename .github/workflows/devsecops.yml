@@ -25,13 +25,11 @@ jobs:
       - name: Run Semgrep SAST
         run: |
           semgrep \
+            --config=semgrep-rules.yml \
             --config=p/owasp-top-ten \
-            --config=p/default \
             --config=p/secrets \
-            --config=p/sql-injection \
-            --config=p/nodejs \
+            --config=p/ci \
             --error --verbose .
-
   sca_scan:
     name: Run SCA Dependency Scan (Trivy)
     runs-on: ubuntu-latest
