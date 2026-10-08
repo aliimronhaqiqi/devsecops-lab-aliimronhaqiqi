@@ -29,6 +29,7 @@ jobs:
             --config=p/default \
             --config=p/secrets \
             --config=p/sql-injection \
+            --config=p/nodejs \
             --error --verbose .
 
   sca_scan:
