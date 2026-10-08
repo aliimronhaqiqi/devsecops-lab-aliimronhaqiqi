@@ -13,22 +13,10 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
       - name: Run Semgrep SAST
-        run: |
-          semgrep \
-            --config=p/javascript \
-            --config=p/secrets \
-            --config=p/ci \
-            --error --verbose .
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/ci
 
   sca_scan:
     name: Run SCA Dependency Scan (Trivy)
@@ -36,12 +24,10 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
           scan-ref: '.'
-          format: 'table'
+          severity: 'HIGH,CRITICAL'
           exit-code: '1'
-          severity: 'CRITICAL,HIGH'
