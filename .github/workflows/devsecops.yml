@@ -25,9 +25,10 @@ jobs:
       - name: Run Semgrep SAST
         run: |
           semgrep \
-            --config=p/javascript \
+            --config=p/owasp-top-ten \
+            --config=p/default \
             --config=p/secrets \
-            --config=p/ci \
+            --config=p/sql-injection \
             --error --verbose .
 
   sca_scan:
