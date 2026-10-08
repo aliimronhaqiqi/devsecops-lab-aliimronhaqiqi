@@ -23,7 +23,12 @@ jobs:
         run: pip install semgrep
 
       - name: Run Semgrep SAST
-        run: semgrep --config=p/ci --error --verbose .
+        run: |
+          semgrep \
+            --config=p/javascript \
+            --config=p/secrets \
+            --config=p/ci \
+            --error --verbose .
 
   sca_scan:
     name: Run SCA Dependency Scan (Trivy)
