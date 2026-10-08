@@ -14,10 +14,16 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Run Semgrep SAST
-        uses: semgrep/semgrep-action@v1
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          config: p/ci
+          python-version: '3.11'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep SAST
+        run: semgrep --config=p/ci --error --verbose .
 
   sca_scan:
     name: Run SCA Dependency Scan (Trivy)
